@@ -102,6 +102,7 @@ for block in blocks:
         if '.csv' in block.find('a')['href'] or '.xls' in block.find('a')['href'] or '.xlsx' in block.find('a')['href'] or '.pdf' in block.find('a')['href']:
             link = block.find('a')['href']
             title = block.find('strong').text
+            csvYr = title.split('/')[0].strip()
             if 'Month 01' in title:
                 csvMth = 'April'
             if 'Month 02' in title:
@@ -122,11 +123,13 @@ for block in blocks:
                 csvMth = 'December'
             if 'Month 10' in title:
                 csvMth = 'January'
+                csvYr = str(int(csvYr) + 1)
             if 'Month 11' in title:
                 csvMth = 'February'
+                csvYr = str(int(csvYr) + 1)
             if 'Month 12' in title:
                 csvMth = 'March'
-            csvYr = title.split('/')[0].strip()
+                csvYr = str(int(csvYr) + 1)
             csvMth = csvMth[:3]
             csvMth = convert_mth_strings(csvMth.upper())
             data.append([csvYr, csvMth, link])
